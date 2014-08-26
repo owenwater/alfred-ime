@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
 import sys
-import math
 from workflow.workflow import Settings
 from workflow import Workflow
-from main import IME
-from main import Const
+
+from const import Const
 
 LOG = None
 
@@ -130,7 +129,7 @@ class Config(object):
         return key + Config.SEPARATOR + value
 
 if __name__=="__main__":
-    #config = Config(' '.join(sys.argv[1:]))
-    #config.execute()
-    setter = ConfigSetter(' '.join(sys.argv[1:]))
-    setter.execute()
+    config = Config(' '.join(sys.argv[1:]))
+    config.execute()
+    #setter = ConfigSetter(' '.join(sys.argv[1:]))
+    #setter.execute()
