@@ -16,7 +16,7 @@ class Params:
         self.oe = 'utf-8'
         self.app = 'alfred-ime'
 
-class IME(object):
+class Const(object):
     ITC = u"itc"
     NUMBER = u"num"
     DEFAULT_TEXT = u""
@@ -26,6 +26,8 @@ class IME(object):
 
     ICON_FILE_NAME = "icon.png"
     APPLICATION_CONFIG_FILE_NAME = "ime.config"
+
+class IME(object):
     URL = "https://inputtools.google.com/request"
 
 
@@ -39,10 +41,10 @@ class IME(object):
         sys.exit(wf.run(self.main))
 
     def handle_args(self, args):
-        settings = Settings(IME.APPLICATION_CONFIG_FILE_NAME, IME.DEFAULT_CONFIG)
-        text = IME.DEFAULT_TEXT
-        num = settings[IME.NUMBER]
-        itc = settings[IME.ITC]
+        settings = Settings(Const.APPLICATION_CONFIG_FILE_NAME, Const.DEFAULT_CONFIG)
+        text = Const.DEFAULT_TEXT
+        num = settings[Const.NUMBER]
+        itc = settings[Const.ITC]
 
         args = args.strip().split()
         try:
@@ -87,7 +89,7 @@ class IME(object):
                         subtitle = annotation, 
                         arg = workitem_text, 
                         autocomplete = workitem_text,
-                        icon = IME.ICON_FILE_NAME,
+                        icon = Const.ICON_FILE_NAME,
                         valid = True)
 
         self.wf.send_feedback()

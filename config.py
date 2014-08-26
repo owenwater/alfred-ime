@@ -5,6 +5,7 @@ import math
 from workflow.workflow import Settings
 from workflow import Workflow
 from main import IME
+from main import Const
 
 LOG = None
 
@@ -17,7 +18,7 @@ class ConfigSetter(object):
     def __init__(self, args):
         global LOG
         self.args = args.strip()
-        self.settings = Settings(IME.APPLICATION_CONFIG_FILE_NAME, IME.DEFAULT_CONFIG)
+        self.settings = Settings(Const.APPLICATION_CONFIG_FILE_NAME, Const.DEFAULT_CONFIG)
         wf = Workflow()
         LOG = wf.logger
 
@@ -54,14 +55,14 @@ class Config(object):
             self.wf.add_item(u"Default Number Of Words Loaded",
                              subtitle = "enter the number",
                              autocomplete = Config.NUM + ' ', 
-                             icon = IME.ICON_FILE_NAME)
+                             icon = Const.ICON_FILE_NAME)
 
     def show_set_lang_item(self, show_lang):
         if show_lang:
             self.wf.add_item(u"Default Language",
                              subtitle = "select the language",
                              autocomplete = Config.LANG, 
-                             icon = IME.ICON_FILE_NAME)
+                             icon = Const.ICON_FILE_NAME)
 
     def show_config_options(self, show_num = False, show_lang = False):
         if not (show_num or show_lang):
@@ -77,9 +78,9 @@ class Config(object):
         for lang in itc_config.langs:
             self.wf.add_item(lang,
                              subtitle = itc_config.langs[lang],
-                             arg = self.generate_arg(IME.ITC, itc_config.langs[lang]),
+                             arg = self.generate_arg(Const.ITC, itc_config.langs[lang]),
                              valid = True,
-                             icon = IME.ICON_FILE_NAME)
+                             icon = Const.ICON_FILE_NAME)
         self.wf.send_feedback()
 
 
@@ -93,9 +94,9 @@ class Config(object):
         if self.is_integer(number):
             self.wf.add_item(u"Set the default number of words loaded",
                          subtitle = number,
-                         arg = self.generate_arg(IME.NUMBER, number),
+                         arg = self.generate_arg(Const.NUMBER, number),
                          valid = True,
-                         icon = IME.ICON_FILE_NAME)
+                         icon = Const.ICON_FILE_NAME)
             self.wf.send_feedback()
 
     def handle_args(self):
