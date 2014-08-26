@@ -27,6 +27,15 @@ class Const(object):
     ICON_FILE_NAME = "icon.png"
     APPLICATION_CONFIG_FILE_NAME = "ime.config"
 
+    @staticmethod
+    def load_application_settings():
+        return Settings(Const.APPLICATION_CONFIG_FILE_NAME, Const.DEFAULT_CONFIG)
+
+class IMESelector(object):
+    def __init__(self):
+        settings = Settings(Const.APPLICATION_CONFIG_FILE_NAME, Const.DEFAULT_CONFIG)
+
+
 class IME(object):
     URL = "https://inputtools.google.com/request"
 
@@ -41,7 +50,7 @@ class IME(object):
         sys.exit(wf.run(self.main))
 
     def handle_args(self, args):
-        settings = Settings(Const.APPLICATION_CONFIG_FILE_NAME, Const.DEFAULT_CONFIG)
+        settings = Const.load_application_settings()
         text = Const.DEFAULT_TEXT
         num = settings[Const.NUMBER]
         itc = settings[Const.ITC]

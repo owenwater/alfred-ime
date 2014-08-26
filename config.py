@@ -18,7 +18,7 @@ class ConfigSetter(object):
     def __init__(self, args):
         global LOG
         self.args = args.strip()
-        self.settings = Settings(Const.APPLICATION_CONFIG_FILE_NAME, Const.DEFAULT_CONFIG)
+        self.settings = Const.load_application_settings()
         wf = Workflow()
         LOG = wf.logger
 
