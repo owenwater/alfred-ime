@@ -15,13 +15,22 @@ class ITCConfig(object):
 
 class ConfigSetter(object):
     def __init__(self, args):
+        global LOG
         self.args = args.strip()
         self.settings = Settings(IME.APPLICATION_CONFIG_FILE_NAME, IME.DEFAULT_CONFIG)
+        wf = Workflow()
+        LOG = wf.logger
 
-    def execute():
+    def execute(self):
         key,value = self.args.split(Config.SEPARATOR)
-        settings[key] = value
-        settings.save()
+        self.settings[key] = value
+        self.settings.save()
+        self.send_notification(key,value)
+
+    def send_notification(self, key, value):
+        notification = "Set {0} to {1}".format(key, value)
+        LOG.info(notification)
+        print notification
 
 
 class Config(object):
@@ -40,21 +49,27 @@ class Config(object):
         sys.exit(wf.run(self.main))
 
 
-    def show_set_num_item(self):
-        self.wf.add_item(u"Default Number Of Words Loaded",
-                         subtitle = "enter the number",
-                         autocomplete = Config.NUM, 
-                         icon = IME.ICON_FILE_NAME)
+    def show_set_num_item(self, show_num):
+        if show_num:
+            self.wf.add_item(u"Default Number Of Words Loaded",
+                             subtitle = "enter the number",
+                             autocomplete = Config.NUM + ' ', 
+                             icon = IME.ICON_FILE_NAME)
 
-    def show_set_lang_item(self):
-        self.wf.add_item(u"Default Language",
-                         subtitle = "select the language",
-                         autocomplete = Config.LANG, 
-                         icon = IME.ICON_FILE_NAME)
+    def show_set_lang_item(self, show_lang):
+        if show_lang:
+            self.wf.add_item(u"Default Language",
+                             subtitle = "select the language",
+                             autocomplete = Config.LANG, 
+                             icon = IME.ICON_FILE_NAME)
 
-    def show_config_options(self):
-        self.show_set_num_item()
-        self.show_set_lang_item()
+    def show_config_options(self, show_num = False, show_lang = False):
+        if not (show_num or show_lang):
+            #So something will showup at least
+            show_num = True
+            show_lang = True
+        self.show_set_lang_item(show_lang)
+        self.show_set_num_item(show_num)
         self.wf.send_feedback()
 
     def get_lang_input(self):
@@ -65,13 +80,12 @@ class Config(object):
                              arg = self.generate_arg(Config.LANG, itc_config.langs[lang]),
                              valid = True,
                              icon = IME.ICON_FILE_NAME)
-
         self.wf.send_feedback()
 
 
     def get_num_input(self, args):
         if len(args) == 0:
-            self.show_set_num_item()
+            self.show_config_options(show_num = True)
             self.wf.send_feedback()
             return
 
@@ -92,7 +106,9 @@ class Config(object):
         elif option == Config.LANG:
             self.get_lang_input()
         else:
-            self.show_config_options()
+            show_lang = Config.LANG.startswith(option)
+            show_num = Config.NUM.startswith(option)
+            self.show_config_options(show_lang = show_lang, show_num = show_num)
 
     def main(self, wf):
         self.wf = wf
@@ -110,8 +126,10 @@ class Config(object):
             return False
 
     def generate_arg(self, key, value):
-        key + Config.SEPARATOR + value
+        return key + Config.SEPARATOR + value
 
 if __name__=="__main__":
-    config = Config(' '.join(sys.argv[1:]))
-    config.execute()
+    #config = Config(' '.join(sys.argv[1:]))
+    #config.execute()
+    setter = ConfigSetter(' '.join(sys.argv[1:]))
+    setter.execute()

@@ -8,6 +8,28 @@
 	<string>Internet</string>
 	<key>connections</key>
 	<dict>
+		<key>2C56393E-8BAE-42EE-95FA-BA83D92C9FF9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8EB8DC73-B86E-4199-A4D9-F12F10724B51</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>8EB8DC73-B86E-4199-A4D9-F12F10724B51</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>9579E38F-5934-464F-9EDA-484196C0C8B8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>C9978FD3-7215-4CF6-84D5-CBED0D941F91</key>
 		<array>
 			<dict>
@@ -30,6 +52,21 @@
 	<string>IME</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>6F3C52BB-4F3E-40CA-93C0-3BCF06833915</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -67,15 +104,81 @@ if __name__=="__main__":
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
-				<false/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>imeconfig</string>
+				<key>script</key>
+				<string>#!/usr/bin/python
+
+import sys
+from config import Config
+
+if __name__=="__main__":
+    config = Config("{query}")
+    config.execute()</string>
+				<key>title</key>
+				<string>IME Config</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>6F3C52BB-4F3E-40CA-93C0-3BCF06833915</string>
+			<string>2C56393E-8BAE-42EE-95FA-BA83D92C9FF9</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>#!/usr/bin/python
+
+import sys
+from config import ConfigSetter
+
+if __name__=="__main__":
+    setter = ConfigSetter("{query}")
+    setter.execute()</string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>8EB8DC73-B86E-4199-A4D9-F12F10724B51</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>IME Config</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>9579E38F-5934-464F-9EDA-484196C0C8B8</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -84,10 +187,25 @@ if __name__=="__main__":
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>2C56393E-8BAE-42EE-95FA-BA83D92C9FF9</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
 		<key>6F3C52BB-4F3E-40CA-93C0-3BCF06833915</key>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
+		</dict>
+		<key>8EB8DC73-B86E-4199-A4D9-F12F10724B51</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>9579E38F-5934-464F-9EDA-484196C0C8B8</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
 		</dict>
 		<key>C9978FD3-7215-4CF6-84D5-CBED0D941F91</key>
 		<dict>

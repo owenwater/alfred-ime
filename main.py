@@ -39,7 +39,7 @@ class IME(object):
         sys.exit(wf.run(self.main))
 
     def handle_args(self, args):
-        settings = Settings(IME.ITC_CONFIG_FILE_NAME, IME.DEFAULT_CONFIG)
+        settings = Settings(IME.APPLICATION_CONFIG_FILE_NAME, IME.DEFAULT_CONFIG)
         text = IME.DEFAULT_TEXT
         num = settings[IME.NUMBER]
         itc = settings[IME.ITC]
