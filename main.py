@@ -38,7 +38,7 @@ class IMESelector(object):
         self.num = settings[Const.NUMBER]
 
     def getIME(self, args):
-        return IME(args, self.num, self.ltc)
+        return IME(args, self.num, self.itc)
 
 
 class IME(object):
