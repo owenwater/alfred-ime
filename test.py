@@ -2,8 +2,8 @@
 
 import sys
 import math
-import main
+from main import IME
 
 if __name__=="__main__":
-    main.arg = ' '.join(sys.argv[1:])
-    main.start()
+    ime = IME(' '.join(sys.argv[1:]))
+    ime.execute()

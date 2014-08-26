@@ -3,85 +3,109 @@
 import sys
 from workflow import Workflow
 from workflow import web
-
-arg = ""
-defaultLang = 'zh-t-i0-pinyin'
-defaultNumberOfResult = 10
-
-itcConfigFileName = "itc.config"
-iconFileName = "icon.png"
-
-
+from workflow.workflow import Settings
+    
 LOG = None
 
 class Params:
-    def __init__(self):
+    def __init__(self, (text, itc, num)):
+        self.text = text
+        self.itc = itc
+        self.num = num
         self.ie = 'utf-8'
         self.oe = 'utf-8'
         self.app = 'alfred-ime'
 
-def handle_args(args):
-    args = args.strip().split()
-    text = ''
-    num = defaultNumberOfResult
-    lang = defaultLang
-    try:
-        text = args[0]
-        num = args[1]
-        lang = args[2]
-    except IndexError:
-        pass
-    return text,num,lang
+class IME(object):
+    ITC = u"itc"
+    NUMBER = u"num"
+    DEFAULT_TEXT = u""
+    DEFAULT_ITC = u"zh-t-i0-pinyin"
+    DEFAULT_NUMBER_OF_RESULT = u'10'
+    DEFAULT_CONFIG = {ITC: DEFAULT_ITC, NUMBER: DEFAULT_NUMBER_OF_RESULT}
 
-def get_workitem_text(text, result, matched_length):
-    left_text = text[matched_length:]
-    return result+left_text
+    ICON_FILE_NAME = "icon.png"
+    ITC_CONFIG_FILE_NAME = "itc.config"
+    APPLICATION_CONFIG_FILE_NAME = "ime.config"
+    URL = "https://inputtools.google.com/request"
 
-def update_workflow_items(json, wf):
-    if json[0] != 'SUCCESS':
-        wf.add_item(json[0])
-        wf.send_feedback()
-        return
-    content = json[1]
-    text = content[0][0]
-    results = content[0][1]
-    meta_data = content[0][3]
 
-    for index, result in enumerate(results):
-        annotation = meta_data['annotation'][index]
-        matched_length = len(text)
+    def __init__(self, args):
+        self.args = args
+
+    def execute(self):
+        global LOG
+        wf = Workflow()
+        LOG = wf.logger
+        sys.exit(wf.run(self.main))
+
+    def handle_args(self, args):
+        settings = Settings(IME.ITC_CONFIG_FILE_NAME, IME.DEFAULT_CONFIG)
+        text = IME.DEFAULT_TEXT
+        num = settings[IME.NUMBER]
+        itc = settings[IME.ITC]
+        settings.save()
+
+        args = args.strip().split()
+        try:
+            text = args[0]
+            num = args[1]
+        except IndexError:
+            pass
+        return text,itc,num
+
+    def get_workitem_texts(self, text, result, matched_length):
+        left_text = text[matched_length:]
+        return result+left_text
+
+    def isSuccess(self, json):
+        return json[0] == 'SUCCESS'
+
+    def parsingJson(self, json):
+        content = json[1]
+        text = content[0][0]
+        results = content[0][1]
+        meta_data = content[0][3]
+        annotation_list = meta_data['annotation']
         if 'matched_length' in meta_data:
-            matched_length = meta_data['matched_length'][index]
-        workitem_text = get_workitem_text(text, result, matched_length)
-        wf.add_item(workitem_text,
-                    subtitle = annotation, 
-                    arg = workitem_text, 
-                    autocomplete = workitem_text,
-                    uid = str(index),
-                    icon = iconFileName,
-                    valid = True)
-    wf.send_feedback()
+            matched_length_list = meta_data['matched_length']
+        else:
+            matched_length_list = [len(text)] * len(results)
 
+        return text, results, annotation_list, matched_length_list
+        
 
+    def update_workflow_items(self, json):
+        if not self.isSuccess(json):         
+            self.wf.add_item(json[0])
+            self.wf.send_feedback()
+            return
 
-def main(wf):
-    text,num,itc = handle_args(arg)
-    params = Params()
-    params.text = text
-    params.itc = itc
-    params.num = num
-    
-    url = "https://inputtools.google.com/request"
-    response = web.post(url, params=params.__dict__)
-    response.raise_for_status()
-    
-    update_workflow_items(response.json(), wf)
+        text, results, annotation_list, matched_length_list = self.parsingJson(json)
 
-def start():
-    global LOG
-    wf = Workflow()
-    LOG = wf.logger
-    sys.exit(wf.run(main))
+        for result, annotation, matched_length in zip(results, annotation_list, matched_length_list):
+            workitem_text = self.get_workitem_texts(text, result, matched_length)
+            self.wf.add_item(workitem_text,
+                        subtitle = annotation, 
+                        arg = workitem_text, 
+                        autocomplete = workitem_text,
+                        icon = IME.ICON_FILE_NAME,
+                        valid = True)
+
+        self.wf.send_feedback()
+
+    def loadResponse(self, params):
+        response = web.post(IME.URL, params=params.__dict__)
+        response.raise_for_status()
+        return response
+
+    def main(self, wf):
+        self.wf = wf
+
+        params = Params(self.handle_args(self.args))
+
+        response = self.loadResponse(params)
+        self.update_workflow_items(response.json())
 
 
 if __name__=="__main__":
