@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 import sys
-import math
-from main import IME
+from main import IMESelector
 
 if __name__=="__main__":
-    ime = IME(' '.join(sys.argv[1:]))
+    selector = IMESelector()
+    ime = selector.getIME(' '.join(sys.argv[1:]))
     ime.execute()

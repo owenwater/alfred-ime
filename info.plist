@@ -82,10 +82,11 @@
 				<string>#!/usr/bin/python
 
 import sys
-from main import IME
+from main import IMESelector
 
 if __name__=="__main__":
-    ime = IME("{query}")
+    selector = IMESelector()
+    ime = selector.getIME("{query}")
     ime.execute()</string>
 				<key>title</key>
 				<string>Online Input Method</string>
