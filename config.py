@@ -77,7 +77,7 @@ class Config(object):
         for lang in itc_config.langs:
             self.wf.add_item(lang,
                              subtitle = itc_config.langs[lang],
-                             arg = self.generate_arg(Config.LANG, itc_config.langs[lang]),
+                             arg = self.generate_arg(IME.ITC, itc_config.langs[lang]),
                              valid = True,
                              icon = IME.ICON_FILE_NAME)
         self.wf.send_feedback()
@@ -93,7 +93,7 @@ class Config(object):
         if self.is_integer(number):
             self.wf.add_item(u"Set the default number of words loaded",
                          subtitle = number,
-                         arg = self.generate_arg(Config.NUM, number),
+                         arg = self.generate_arg(IME.NUMBER, number),
                          valid = True,
                          icon = IME.ICON_FILE_NAME)
             self.wf.send_feedback()
