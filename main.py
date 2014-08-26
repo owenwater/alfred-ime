@@ -34,14 +34,20 @@ class Const(object):
 class IMESelector(object):
     def __init__(self):
         settings = Settings(Const.APPLICATION_CONFIG_FILE_NAME, Const.DEFAULT_CONFIG)
+        self.itc = settings[Const.ITC]
+        self.num = settings[Const.NUMBER]
+
+    def getIME(self, args):
+        return IME(args, self.num, self.ltc)
 
 
 class IME(object):
     URL = "https://inputtools.google.com/request"
 
-
-    def __init__(self, args):
+    def __init__(self, args, default_num, default_itc):
         self.args = args
+        self.default_num = default_num
+        self.default_itc = default_itc
 
     def execute(self):
         global LOG
@@ -50,10 +56,9 @@ class IME(object):
         sys.exit(wf.run(self.main))
 
     def handle_args(self, args):
-        settings = Const.load_application_settings()
         text = Const.DEFAULT_TEXT
-        num = settings[Const.NUMBER]
-        itc = settings[Const.ITC]
+        num = self.default_num
+        itc = self.default_itc
 
         args = args.strip().split()
         try:
