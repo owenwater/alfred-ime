@@ -25,7 +25,6 @@ class IME(object):
     DEFAULT_CONFIG = {ITC: DEFAULT_ITC, NUMBER: DEFAULT_NUMBER_OF_RESULT}
 
     ICON_FILE_NAME = "icon.png"
-    ITC_CONFIG_FILE_NAME = "itc.config"
     APPLICATION_CONFIG_FILE_NAME = "ime.config"
     URL = "https://inputtools.google.com/request"
 
@@ -44,7 +43,6 @@ class IME(object):
         text = IME.DEFAULT_TEXT
         num = settings[IME.NUMBER]
         itc = settings[IME.ITC]
-        settings.save()
 
         args = args.strip().split()
         try:
@@ -58,10 +56,10 @@ class IME(object):
         left_text = text[matched_length:]
         return result+left_text
 
-    def isSuccess(self, json):
+    def is_success(self, json):
         return json[0] == 'SUCCESS'
 
-    def parsingJson(self, json):
+    def parsing_json(self, json):
         content = json[1]
         text = content[0][0]
         results = content[0][1]
@@ -76,12 +74,12 @@ class IME(object):
         
 
     def update_workflow_items(self, json):
-        if not self.isSuccess(json):         
+        if not self.is_success(json):         
             self.wf.add_item(json[0])
             self.wf.send_feedback()
             return
 
-        text, results, annotation_list, matched_length_list = self.parsingJson(json)
+        text, results, annotation_list, matched_length_list = self.parsing_json(json)
 
         for result, annotation, matched_length in zip(results, annotation_list, matched_length_list):
             workitem_text = self.get_workitem_texts(text, result, matched_length)
@@ -94,7 +92,7 @@ class IME(object):
 
         self.wf.send_feedback()
 
-    def loadResponse(self, params):
+    def load_response(self, params):
         response = web.post(IME.URL, params=params.__dict__)
         response.raise_for_status()
         return response
@@ -104,7 +102,7 @@ class IME(object):
 
         params = Params(self.handle_args(self.args))
 
-        response = self.loadResponse(params)
+        response = self.load_response(params)
         self.update_workflow_items(response.json())
 
 
