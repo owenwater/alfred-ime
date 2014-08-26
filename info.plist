@@ -114,7 +114,6 @@ if __name__=="__main__":
 				<key>script</key>
 				<string>#!/usr/bin/python
 
-import sys
 from config import Config
 
 if __name__=="__main__":
