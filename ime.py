@@ -25,10 +25,14 @@ class IME(object):
         self.default_num = default_num
         self.default_itc = default_itc
 
-    def execute(self):
+    def init_log(self, wf):
         global LOG
-        wf = Workflow()
         LOG = wf.logger
+
+
+    def execute(self):
+        wf = Workflow()
+        self.init_log(wf)
         sys.exit(wf.run(self.main))
 
     def handle_args(self, args):
@@ -56,7 +60,12 @@ class IME(object):
         text = content[0][0]
         results = content[0][1]
         meta_data = content[0][3]
-        annotation_list = meta_data['annotation']
+        
+        if 'annotation' in meta_data:
+            annotation_list = meta_data['annotation']
+        else:
+            annotation_list = [text] * len(results)
+
         if 'matched_length' in meta_data:
             matched_length_list = meta_data['matched_length']
         else:
@@ -81,12 +90,12 @@ class IME(object):
                         autocomplete = workitem_text,
                         icon = Const.ICON_FILE_NAME,
                         valid = True)
-
         self.wf.send_feedback()
 
     def load_response(self, params):
         response = web.post(IME.URL, params=params.__dict__)
         response.raise_for_status()
+        print response.text
         return response
 
     def main(self, wf):
