@@ -31,7 +31,6 @@ class JPIME(IME):
         args = unicode(args, "utf-8")
         text, itc, num = super(JPIME, self).handle_args(args)
         parsed_text = self.parse_text(text)
-        LOG.debug(parsed_text)
         self.wf.add_item(parsed_text,
                          subtitle = text,
                          arg = parsed_text,
