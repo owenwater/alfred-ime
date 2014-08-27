@@ -12,10 +12,7 @@ A Input method program based on Alfred workflow and Google Input Tools
 * How to _install_ it?
 	1. Have access to the Internet.
     2. Download and install Alfred [Powerpack](http://www.alfredapp.com/powerpack/).
-    3. Download and open the workflow.
-
-###Screenshots
-
+    3. Download and open the [workflow](https://github.com/owenwater/alfred-ime/blob/master/IME.alfredworkflow?raw=true).
 
 ###Usage:
 * `ime [input] [number of alternatives]`
@@ -26,8 +23,23 @@ A Input method program based on Alfred workflow and Google Input Tools
 * `imeconfig [option]`
 	* `imeconfig lang` Choose language.
     * `imeconfig num [integer]` Set default number of possible alternatives.
-    
-    
+ 
+###Screenshots
+
+![](https://raw.githubusercontent.com/owenwater/alfred-ime/master/screenshot/screenshot.gif "")
+
+![](https://raw.githubusercontent.com/owenwater/alfred-ime/master/screenshot/screenshot_zh_1.png "")
+
+![](https://raw.githubusercontent.com/owenwater/alfred-ime/master/screenshot/screenshot_zh_2.png "")
+
+![](https://raw.githubusercontent.com/owenwater/alfred-ime/master/screenshot/screenshot_jp.png "")
+
+![](https://raw.githubusercontent.com/owenwater/alfred-ime/master/screenshot/screenshot_config_1.png "")
+
+![](https://raw.githubusercontent.com/owenwater/alfred-ime/master/screenshot/screenshot_config_2.png "")
+
+![](https://raw.githubusercontent.com/owenwater/alfred-ime/master/screenshot/screenshot_config_3.png "") 
+ 
     
 ###Supported Language:
 * Chinese(simplified)
