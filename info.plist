@@ -19,6 +19,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>2F79CCA4-770A-48AF-8B4C-1E5EFA62B967</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C9978FD3-7215-4CF6-84D5-CBED0D941F91</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>8EB8DC73-B86E-4199-A4D9-F12F10724B51</key>
 		<array>
 			<dict>
@@ -56,7 +67,7 @@
 			<key>config</key>
 			<dict>
 				<key>autopaste</key>
-				<false/>
+				<true/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
 			</dict>
@@ -101,6 +112,33 @@ if __name__=="__main__":
 			<string>C9978FD3-7215-4CF6-84D5-CBED0D941F91</string>
 			<key>version</key>
 			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>0</integer>
+				<key>hotmod</key>
+				<integer>0</integer>
+				<key>hotstring</key>
+				<string></string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>2F79CCA4-770A-48AF-8B4C-1E5EFA62B967</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -191,6 +229,11 @@ if __name__=="__main__":
 		<dict>
 			<key>ypos</key>
 			<real>130</real>
+		</dict>
+		<key>2F79CCA4-770A-48AF-8B4C-1E5EFA62B967</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
 		</dict>
 		<key>6F3C52BB-4F3E-40CA-93C0-3BCF06833915</key>
 		<dict>
