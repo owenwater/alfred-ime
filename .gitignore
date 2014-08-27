@@ -1,4 +1,5 @@
 info
 .DS_Store
+src/test.py
 *.swp
 *.pyc
