@@ -9,7 +9,7 @@ from const import Const
 LOG = None
 
 class ITCConfig(object):
-    ITC_CONFIG_FILE_NAME = "itc.config"
+    ITC_CONFIG_FILE_NAME = "config/itc.config"
     def __init__(self):
         self.langs = Settings(ITCConfig.ITC_CONFIG_FILE_NAME)
 

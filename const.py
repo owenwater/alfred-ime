@@ -11,7 +11,7 @@ class Const(object):
     DEFAULT_CONFIG = {ITC: DEFAULT_ITC, NUMBER: DEFAULT_NUMBER_OF_RESULT}
 
     ICON_FILE_NAME = "icon.png"
-    APPLICATION_CONFIG_FILE_NAME = "ime.config"
+    APPLICATION_CONFIG_FILE_NAME = "config/ime.config"
 
     @staticmethod
     def load_application_settings():
