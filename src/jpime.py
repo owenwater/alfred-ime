@@ -37,7 +37,7 @@ class JPIME(IME):
                          autocomplete = parsed_text,
                          icon = Const.ICON_FILE_NAME,
                          valid = True)
-        return text, itc, num
+        return parsed_text, itc, num
 
     def init_log(self, wf):
         global LOG
