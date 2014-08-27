@@ -30,7 +30,6 @@ class ConfigSetter(object):
     def send_notification(self, key, value):
         notification = "Set {0} to {1}".format(key, value)
         LOG.info(notification)
-        print notification
 
 
 class Config(object):
@@ -41,6 +40,7 @@ class Config(object):
 
     def __init__(self, args):
         self.args = args.strip()
+        self.settings = Const.load_application_settings()
 
     def execute(self):
         global LOG
@@ -51,15 +51,15 @@ class Config(object):
 
     def show_set_num_item(self, show_num):
         if show_num:
-            self.wf.add_item(u"Default Number Of Words Loaded",
-                             subtitle = "enter the number",
+            self.wf.add_item(u"Set default number of alternatives",
+                             subtitle = u"Current: " + self.settings[Const.NUMBER],
                              autocomplete = Config.NUM + ' ', 
                              icon = Const.ICON_FILE_NAME)
 
     def show_set_lang_item(self, show_lang):
         if show_lang:
-            self.wf.add_item(u"Default Language",
-                             subtitle = "select the language",
+            self.wf.add_item(u"Set default language",
+                             subtitle = u"Current: " + self.settings[Const.ITC][:2],
                              autocomplete = Config.LANG, 
                              icon = Const.ICON_FILE_NAME)
 
@@ -76,7 +76,6 @@ class Config(object):
         itc_config = ITCConfig()
         for lang in itc_config.langs:
             self.wf.add_item(lang,
-                             subtitle = itc_config.langs[lang],
                              arg = self.generate_arg(Const.ITC, itc_config.langs[lang]),
                              valid = True,
                              icon = Const.ICON_FILE_NAME)
@@ -91,8 +90,8 @@ class Config(object):
 
         number = args[0]
         if self.is_integer(number):
-            self.wf.add_item(u"Set the default number of words loaded",
-                         subtitle = number,
+            self.wf.add_item(u"Set default number of alternatives",
+                         subtitle = u"Set to: " + number,
                          arg = self.generate_arg(Const.NUMBER, number),
                          valid = True,
                          icon = Const.ICON_FILE_NAME)
