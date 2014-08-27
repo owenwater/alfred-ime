@@ -101,6 +101,11 @@ class IME(object):
         self.wf = wf
 
         params = Params(self.handle_args(self.args))
+        if params.text == "":
+            self.wf.add_item("Waiting for input...",
+                             icon = Const.ICON_FILE_NAME)
+            self.wf.send_feedback()
+            return
 
         response = self.load_response(params)
         self.update_workflow_items(response.json())
