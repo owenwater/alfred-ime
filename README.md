@@ -42,10 +42,11 @@ A Input method program based on Alfred workflow and Google Input Tools
  
     
 ###Supported Language:
-* Chinese(Simplified) - Pinyin
-* Chinese(Traditional) - Pinyin
-* Japanese 
-	
+* Chinese(Simplified)
+* Chinese(Traditional)
+* Japanese
+
+
     For inquiries of new language support, please open an issue.
 
 ###Copyright, Licensing and Thanks
