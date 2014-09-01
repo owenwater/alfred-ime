@@ -1,19 +1,26 @@
 #!/usr/bin/python
 
 from ime import IME
-from data import jp_t_jp
 from const import Const
+import json
 
 LOG = None
 
 class JPIME(IME):
+    JSON_FILE_NAME = "data/jp.json"
     MAX_LENGTH = 4
     ONE_CHARACTER = 1
+
+    def __init__(self,  text, itc, num):
+        super(JPIME, self).__init__(text, itc, num)
+        with open(JPIME.JSON_FILE_NAME) as fp:
+            self.jp_mapping = json.load(fp)
+
     def get_character(self, text, index):
         for length in range(JPIME.MAX_LENGTH,0,-1):
             str = text[index:index+length]
-            if str in jp_t_jp.mapping:
-                return jp_t_jp.mapping[str], length
+            if str in self.jp_mapping:
+                return self.jp_mapping[str], length
         return text[index], JPIME.ONE_CHARACTER
 
     def parse_text(self, text):
