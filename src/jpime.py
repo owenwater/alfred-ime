@@ -38,12 +38,13 @@ class JPIME(IME):
         args = unicode(args, "utf-8")
         text, itc, num = super(JPIME, self).handle_args(args)
         parsed_text = self.parse_text(text)
-        self.wf.add_item(parsed_text,
-                         subtitle = text,
-                         arg = parsed_text,
-                         autocomplete = parsed_text,
-                         icon = Const.ICON_FILE_NAME,
-                         valid = True)
+        if parsed_text != text:
+            self.wf.add_item(parsed_text,
+                             subtitle = text,
+                             arg = parsed_text,
+                             autocomplete = parsed_text,
+                             icon = Const.ICON_FILE_NAME,
+                             valid = True)
         return parsed_text, itc, num
 
     def init_log(self, wf):
