@@ -54,4 +54,4 @@ A Input method program based on Alfred workflow and Google Input Tools
 * Alfred-workflow([Git Repo](https://github.com/deanishe/alfred-workflow)) are licensed under the [MIT](http://opensource.org/licenses/MIT) and [Creative Commons Attribution-NonCommercial licences](https://creativecommons.org/licenses/by-nc/4.0/legalcode) respectively.
 * Workflow Icon([Source](http://commons.wikimedia.org/wiki/File:GoogleIMENewLogo.png)) comes from Google Pinyin 
 * [Goolge Input method](http://www.google.com/inputtools/)
-* All other code and documents are licensed under [MIT]{http://opensource.org/licenses/MIT}
+* All other code and documents are licensed under [MIT](http://opensource.org/licenses/MIT)
